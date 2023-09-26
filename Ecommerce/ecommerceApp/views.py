@@ -1,11 +1,7 @@
 from django.shortcuts import render
 
 def index(request):
-    return render(request, 'index.html')
-
-def zurag(request):
-    dic = {'print':'Энэ бол Django:'}
-    return render(request, "appOne/zurag.html", context = dic)    
+    return render(request, 'index.html') 
 
 def cart(request):
     return render(request, 'cart.html')
