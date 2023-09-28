@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from ecommerceApp.models import Category, Product
 
 def index(request):
-    return render(request, 'index.html') 
+    prods = Product.objects.all()
+    resp = {'products': prods}
+    return render(request, 'index.html', context= resp) 
 
 def cart(request):
     return render(request, 'cart.html')
