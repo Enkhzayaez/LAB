@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from ecommerceApp.models import Category, Product
+import sqlite3 as sql
 
 def index(request):
     prods = Product.objects.all()
-    resp = {'products': prods}
-    return render(request, 'index.html', context= resp) 
+    dict = {'products': prods}
+    return render(request, 'index.html', context= dict) 
 
 def cart(request):
     return render(request, 'cart.html')
@@ -31,4 +32,10 @@ def signin(request):
     return render(request, 'signin.html')
 
 def store(request):
-    return render(request, 'store.html')
+    con = sql.connect('db.sqlite3')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM ecommerceApp_product')
+    prods = cur.fetchall()
+    # prods = Product.objects.all()
+    dict = {'products': prods,'count' : len(prods)}
+    return render(request, 'store.html', context= dict)

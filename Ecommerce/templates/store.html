@@ -126,33 +126,33 @@
 
 <header class="border-bottom mb-4 pb-3">
 		<div class="form-inline">
-			<span class="mr-md-auto">32 Items found </span>
+			<span class="mr-md-auto">{{count}} Items found </span>
 			
 		</div>
 </header><!-- sect-heading -->
 
 <div class="row">
+	{% for product in products %}
 	<div class="col-md-4">
 		<figure class="card card-product-grid">
 			<div class="img-wrap"> 
 				
-				<img src="{% static 'images/items/1.jpg' %}">
+				<img src="media/{{product.5}}">
 				
 			</div> <!-- img-wrap.// -->
 			<figcaption class="info-wrap">
 				<div class="fix-height">
-					<a href="{% static './product-detail.html' %}" class="title">Great item name goes here</a>
+					<a href="{% static './product-detail.html' %}" class="title">{{product.1}}</a>
 					<div class="price-wrap mt-2">
-						<span class="price">$1280</span>
-						<del class="price-old">$1980</del>
+						<span class="price">{{product.4}}₮</span>
 					</div> <!-- price-wrap.// -->
 				</div>
 				<a href="{% static '#' %}" class="btn btn-block btn-success">Added to cart </a>
 			</figcaption>
 		</figure>
 	</div> <!-- col.// -->
-
-	<div class="col-md-4">
+	{% endfor %}
+	{% comment %} <div class="col-md-4">
 		<figure class="card card-product-grid">
 			<div class="img-wrap"> 
 				<img src="{% static 'images/items/2.jpg' %}">
@@ -276,7 +276,7 @@
 				<a href="{% static '' %}" class="btn btn-block btn-primary">Add to cart </a>	
 			</figcaption>
 		</figure>
-	</div> <!-- col.// -->
+	</div> <!-- col.// --> {% endcomment %}
 </div> <!-- row end.// -->
 
 
