@@ -3,7 +3,10 @@ from ecommerceApp.models import Category, Product
 import sqlite3 as sql
 
 def index(request):
-    prods = Product.objects.all()
+    con = sql.connect('db.sqlite3')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM ecommerceApp_product')
+    prods = cur.fetchall()
     dict = {'products': prods}
     return render(request, 'index.html', context= dict) 
 
@@ -31,11 +34,11 @@ def search_result(request):
 def signin(request):
     return render(request, 'signin.html')
 
-def store(request):
-    con = sql.connect('db.sqlite3')
-    cur = con.cursor()
-    cur.execute('SELECT * FROM ecommerceApp_product')
-    prods = cur.fetchall()
-    # prods = Product.objects.all()
+def store(request,arg = None):
+    if(arg == None):
+        prods = Product.objects.all()
+    else:
+        temp = Category.objects.get(category_name = arg)
+        prods = Product.objects.filter(category = temp)
     dict = {'products': prods,'count' : len(prods)}
     return render(request, 'store.html', context= dict)
