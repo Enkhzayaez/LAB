@@ -1,13 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from ecommerceApp.models import Category, Product
 import sqlite3 as sql
+from django.core.paginator import Paginator
 
 def index(request):
-    con = sql.connect('db.sqlite3')
-    cur = con.cursor()
-    cur.execute('SELECT * FROM ecommerceApp_product')
-    prods = cur.fetchall()
-    dict = {'products': prods}
+    product = Product.objects.all()
+    p = Paginator(product, 8)
+    page = request.GET.get('page')
+    page_products = p.get_page(page)
+    dict = {'products': page_products}
+    
     return render(request, 'index.html', context= dict) 
 
 def cart(request):
@@ -22,8 +24,9 @@ def order_complete(request):
 def place_order(request):
     return render(request, 'place_order.html')
 
-def product_detail(request):
-    return render(request, 'product_detail.html')
+def product_detail(request,c_slug, p_slug):
+    product = Product.objects.get(category__c_slug = c_slug, p_slug = p_slug)
+    return render(request, 'store/product_detail.html', {'single_product': product})
 
 def register(request):
     return render(request, 'register.html')
@@ -37,8 +40,16 @@ def signin(request):
 def store(request,arg = None):
     if(arg == None):
         prods = Product.objects.all()
+        p = Paginator(prods, 8)
+        page = request.GET.get('page')
+        page_products = p.get_page(page)
+        count = prods.count()
     else:
         temp = Category.objects.get(category_name = arg)
         prods = Product.objects.filter(category = temp)
-    dict = {'products': prods,'count' : len(prods)}
-    return render(request, 'store.html', context= dict)
+
+        p = Paginator(prods, 8)
+        page = request.GET.get('page')
+        page_products = p.get_page(page)
+    dict = {'products': page_products,'count' : len(prods)}
+    return render(request, 'store/store.html', context= dict)
