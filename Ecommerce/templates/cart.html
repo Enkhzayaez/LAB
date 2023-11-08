@@ -40,8 +40,7 @@
                                             </figure>
                                         </td>
                                         <td>
-                                            <!-- col.// -->
-                                            <div class="col">
+                                            <div class="col"> 
                                                 <div class="input-group input-spinner">
                                                     <div class="input-group-prepend">
                                                         <a href="{% url 'remove_cart' cart_item.product.id %}"
@@ -57,18 +56,15 @@
                                                            id="button-minus"> <i class="fa fa-plus"></i> </a>
                                                     </div>
                                                 </div>
-                                                <!-- input-group.// -->
                                             </div>
-                                            <!-- col.// -->
                                         </td>
-                                        <td>
+                                        <td>  <!-- PRICE -->
                                             <div class="price-wrap">
                                                 <var class="price">${{ cart_item.sub_total }}</var>
                                                 <small class="text-muted">${{ cart_item.product.price }} each</small>
                                             </div>
-                                            <!-- price-wrap .// -->
                                         </td>
-                                        <td class="text-right">
+                                        <td class="text-right"> <!-- REMOVE -->
                                             <a href="{% url 'remove_cart_item' cart_item.product.id %}"
                                                class="btn btn-danger">Remove</a>
                                         </td>
