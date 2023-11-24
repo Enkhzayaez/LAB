@@ -148,6 +148,17 @@ $(document).ready(function() {
                         <!-- col.// -->
                         <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
                             <div class="d-flex justify-content-end mb-3 mb-lg-0">
+                                {% if user_checker %}
+                                <div class="widget-header">
+                                    <small class="title text-muted">Welcome {{username}}</small>
+                                    <div>
+                                        <img src="{{user_pic.url}}" class="img-fluid rounded-circle border border-dark border-1" style="width: 40px; height: 40px;" />
+            
+                                        <span class="dark-transp">|</span>
+                                        <a href="{% url 'logout' %}">Logout</a> 
+                                    </div>
+                                </div>
+                                {% else %}
                                 <div class="widget-header">
                                     <small class="title text-muted">Welcome guest!</small>
                                     <div>
@@ -155,6 +166,7 @@ $(document).ready(function() {
                                         <a href="{% url 'register' %}">Register</a>
                                     </div>
                                 </div>
+                                {% endif %}
                                 <a href="{% url 'cart' %}" class="widget-header pl-3 ml-3">
                                     <div class="icon icon-sm rounded-circle border">
                                         <i class="fa fa-shopping-cart"></i>

@@ -13,12 +13,11 @@ class RegisterForm(ModelForm):
 
     class Meta():
         model = User 
-        fields = ('email', 'first_name', 'last_name', 'username', 'password', 'repeat_password')
+        fields = ('email', 'first_name', 'last_name', 'password', 'repeat_password')
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs['placeholder'] = "Eter Email"
-        self.fields['username'].widget.attrs['placeholder'] = "Eter Username"
         self.fields['first_name'].widget.attrs['placeholder'] = "Eter FirstName"
         self.fields['last_name'].widget.attrs['placeholder'] = "Eter LastName"
         for fields in self.fields:

@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from ecommerceApp.models import Product
 from .models import *
+from django.contrib.auth.decorators import login_required
 
 def _cart_id(request):
     cart_id = request.session.session_key
@@ -75,4 +76,9 @@ def cart_items(request):
     for cart_item in cart_items:
         qt += cart_item.quantity
     return {'badge_number' : qt}
+
+
+@login_required(login_url='login')
+def checkout(requiest):
+    return redirect('/')
 
